@@ -15,9 +15,11 @@ class RolController extends Controller
      */
     public function index()
     {
-        $Rol=Rol::all();
-        // return Rol::all();
-        return response()->json([$Rol]);
+        // $Rol=Rol::all();
+        // // return Rol::all();
+        // return response()->json([$Rol]);
+        $roles = Rol::all();
+        return view('roles.index',compact('roles'));
 
     }
 
@@ -29,6 +31,7 @@ class RolController extends Controller
     public function create()
     {
         //
+        return view('roles.add');
     }
 
     /**
@@ -39,11 +42,13 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        $rol = Rol::create([
+        $roles = Rol::create([
             'nombre' => $request->get('nombre')
         ]);
 
-        return $rol;
+        // return $roles;
+        $roles->save();
+        return back()->with('succes','El rol se a creado correctamente');
     }
 
     /**
@@ -54,9 +59,12 @@ class RolController extends Controller
      */
     public function show($id)
     {
-       $rol = Rol::find($id);
+    //    $rol = Rol::find($id);
 
-       return $rol;
+    //    return $rol;
+           $roles = Rol::find($id);
+        return view('roles.show', compact('roles'));
+
     }
 
     /**
@@ -68,6 +76,8 @@ class RolController extends Controller
     public function edit($id)
     {
         //
+        $roles = Rol::find($id);
+        return view('roles.edit', compact('roles'));
     }
 
     /**
@@ -79,13 +89,14 @@ class RolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Rol::find($id);
+        $roles = Rol::find($id);
 
-        $rol->update([
+        $roles->update([
             'nombre' => $request->get('nombre')
         ]);
+        return back()->with('success','El rol se a actualizado correctamente');
 
-        return $rol;
+        // return $rol;
     }
 
     /**

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Categoria;
 use App\Models\Negocio;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class NegocioController extends Controller
 {
@@ -15,26 +15,10 @@ class NegocioController extends Controller
      */
     public function index()
     {
-        // return Negocio::all();
-        // $Negocio=Negocio::all(); este es el de jasonn
-        // return Negocio::all();
-        // return response()->json([$Negocio]); y este
-        $negocios = Negocio::all();
-        return view('negocios.index',compact('negocios'));
-    }
+        //
+        $negocio = Negocio::all();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $categorias = Categoria::where('tipo_cat','negocio')->get();
-        return view('negocios.add', compact('categorias'));
-
-
-        // return view('negocios.add');
+        return Response()->json(['negocios'=>$negocio],200);
     }
 
     /**
@@ -45,7 +29,7 @@ class NegocioController extends Controller
      */
     public function store(Request $request)
     {
-    //    return $request;
+        //
         $negocio = Negocio::create([
             'nombre' => $request->get('nombre'),
             'direccion' => $request->get('direccion'),
@@ -55,8 +39,9 @@ class NegocioController extends Controller
             'categorias_id' => 2
         ]);
 
-        // return $negocio;
-        return back()->with('succes','La categoría se a creado correctamente');
+        return $negocio;
+        // return back()->with('succes','La categoría se a creado correctamente');
+
     }
 
     /**
@@ -67,25 +52,10 @@ class NegocioController extends Controller
      */
     public function show($id)
     {
-        // $negocio = Negocio::find($id);
-        // return $negocio;
-        $negocio = Negocio::find($id);
-        // $negocio = Negocio::paginate(5);
-        return view('negocios.show', compact('negocio'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
         //
         $negocio = Negocio::find($id);
-        return view('negocios.edit', compact('negocio'));
 
+        return Response()->json($negocio,200);
     }
 
     /**
@@ -97,6 +67,7 @@ class NegocioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
         $negocio = Negocio::find($id);
 
         $negocio->update([
@@ -107,7 +78,8 @@ class NegocioController extends Controller
             'calificacion' => $request->get('calificacion'),
             'categorias_id' => 2
         ]);
-        return $negocio;
+        return ('el negocio se actualizo con exito');
+        // return $negocio;
     }
 
     /**
@@ -118,12 +90,11 @@ class NegocioController extends Controller
      */
     public function destroy($id)
     {
-        // Negocio::destroy([1]);
-        // $negocio= Negocio::find($id);
-        // $negocio->delete();
-        // return 'Eliminado';
+        //
         $negocio = Negocio::findOrFail($id);
+
         $negocio->delete();
-        return ('el grupo se elimino de manera correcta');
+
+        return ('el negocio se elimino de manera correcta');
     }
 }

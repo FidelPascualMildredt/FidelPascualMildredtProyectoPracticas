@@ -23,19 +23,26 @@
 </li>
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active1">
-    <a class="nav-link" href="/subject">
+    <a class="nav-link" href="/categoria">
     <i class="fa-solid fa-book"></i>
     <span>Categoria</span></a>
 </li>
+{{--  <!-- Nav Item - Categoria -->
+    <li class="nav-item {{Request::is('categorias*') ? 'active' : ''}}" >
+        <a class="nav-link" href="{{ route('categoria.index') }}">
+            <i class="fas fa-tags"></i>
+            <span>Categorías</span></a>
+    </li>  --}}
+
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active2">
-    <a class="nav-link" href="/students">
+    <a class="nav-link" href="/negocio">
     <i class="fa-sharp fa-solid fa-users"></i>
     <span>Negocio</span></a>
 </li>
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active3">
-    <a class="nav-link" href="/groups">
+    <a class="nav-link" href="/rol">
     <i class="fa-solid fa-landmark"></i>
     <span>Rol</span></a>
 </li>
